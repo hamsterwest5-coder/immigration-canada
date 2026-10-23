@@ -1,0 +1,214 @@
+================================================================================
+  GUIDE SIMPLE POUR METTRE EN LIGNE VOTRE SITE D'IMMIGRATION CANADIENNE
+  (Écrit pour les débutants – suivez les étapes une par une)
+================================================================================
+
+Ce que vous allez obtenir :
+- Un site professionnel avec page d'accueil, inscription, connexion
+- Espace client pour suivre les dossiers
+- Tableau de bord administrateur (pour vous)
+- Base de données sécurisée (Supabase – gratuit)
+
+Temps estimé : 45 à 90 minutes la première fois.
+
+
+================================================================================
+ÉTAPE 1 : Télécharger et ouvrir le projet sur votre ordinateur
+================================================================================
+
+1. Téléchargez le fichier ZIP que je vous ai fourni.
+2. Décompressez-le (clic droit → Extraire / Décompresser).
+3. Vous obtiendrez un dossier nommé "immigration-canada".
+
+
+================================================================================
+ÉTAPE 2 : Créer un compte Supabase (la base de données – GRATUIT)
+================================================================================
+
+Supabase est le service qui stocke les comptes clients, les dossiers et
+les messages de façon sécurisée.
+
+1. Allez sur ce site : https://supabase.com
+2. Cliquez sur "Start your project" ou "Sign up".
+3. Créez un compte (vous pouvez utiliser Google ou GitHub pour aller plus vite).
+4. Une fois connecté, cliquez sur "New project".
+5. Remplissez :
+   - Name : immigration-canada (ou ce que vous voulez)
+   - Database Password : inventez un mot de passe FORT et notez-le précieusement
+     (exemple : MonSiteCanada2026!@)
+   - Region : choisissez "West EU (Paris)" ou le plus proche de vous
+6. Cliquez sur "Create new project".
+7. Attendez 1 à 2 minutes que le projet soit prêt (barre de progression).
+
+
+================================================================================
+ÉTAPE 3 : Installer la base de données (très important)
+================================================================================
+
+1. Dans votre projet Supabase, cliquez à gauche sur "SQL Editor".
+2. Cliquez sur "New query".
+3. Ouvrez sur votre ordinateur le fichier :
+   immigration-canada/supabase/migrations/001_initial_schema.sql
+4. Copiez TOUT le contenu de ce fichier.
+5. Collez-le dans la grande zone de texte de Supabase.
+6. Cliquez sur le bouton "Run" (en bas à droite).
+7. Vous devez voir un message de succès (pas d'erreur rouge).
+
+
+================================================================================
+ÉTAPE 4 : Récupérer les clés secrètes de Supabase
+================================================================================
+
+1. Dans Supabase, cliquez à gauche sur l'icône d'engrenage "Project Settings".
+2. Cliquez sur "API" dans le menu de gauche.
+3. Vous allez voir :
+   - Project URL  →  copiez cette adresse (elle ressemble à https://xxxxx.supabase.co)
+   - anon public  →  copiez la longue clé (sous "Project API keys" → anon public)
+
+Gardez ces deux valeurs sous la main.
+
+
+================================================================================
+ÉTAPE 5 : Créer le fichier de configuration (.env.local)
+================================================================================
+
+1. Ouvrez le dossier "immigration-canada" sur votre ordinateur.
+2. Créez un nouveau fichier texte nommé exactement :  .env.local
+   (attention : le point au début est important)
+3. Ouvrez ce fichier avec le Bloc-notes (Windows) ou TextEdit (Mac).
+4. Collez exactement ce texte :
+
+NEXT_PUBLIC_SUPABASE_URL=colle-ici-votre-Project-URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=colle-ici-votre-clé-anon
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_NAME=Canada Immigration Accompagnement
+
+5. Remplacez les parties "colle-ici-..." par les vraies valeurs de l'étape 4.
+6. Enregistrez le fichier.
+
+
+================================================================================
+ÉTAPE 6 : Installer Node.js (si ce n'est pas déjà fait)
+================================================================================
+
+Node.js permet de faire fonctionner le site.
+
+1. Allez sur : https://nodejs.org
+2. Téléchargez la version "LTS" (recommandée).
+3. Installez-la en cliquant sur "Suivant" jusqu'à la fin.
+4. Redémarrez votre ordinateur si on vous le demande.
+
+
+================================================================================
+ÉTAPE 7 : Lancer le site sur votre ordinateur (test local)
+================================================================================
+
+1. Ouvrez le "Invite de commandes" (Windows) ou "Terminal" (Mac).
+2. Tapez cette commande puis Entrée (remplacez le chemin si besoin) :
+
+   cd chemin/vers/immigration-canada
+
+   Exemple Windows :
+   cd C:\Users\VotreNom\Downloads\immigration-canada
+
+3. Tapez ensuite :
+
+   npm install
+
+   Attendez que ça se termine (peut prendre 1 à 3 minutes).
+
+4. Puis tapez :
+
+   npm run dev
+
+5. Ouvrez votre navigateur et allez sur : http://localhost:3000
+
+Vous devriez voir le site !
+
+
+================================================================================
+ÉTAPE 8 : Créer votre compte administrateur
+================================================================================
+
+1. Sur le site local (http://localhost:3000), cliquez sur "Commencer ma demande"
+   ou "Connexion" → "Créer un compte".
+2. Inscrivez-vous avec VOTRE vraie adresse email et un mot de passe.
+3. Retournez dans Supabase → SQL Editor → New query.
+4. Collez cette commande (remplacez l'email par le vôtre) :
+
+UPDATE profiles
+SET role = 'admin'
+WHERE email = 'votre-email@exemple.com';
+
+5. Cliquez sur "Run".
+6. Déconnectez-vous du site puis reconnectez-vous.
+   Vous serez dirigé vers le tableau de bord administrateur.
+
+
+================================================================================
+ÉTAPE 9 : Mettre le site en ligne GRATUITEMENT (Vercel)
+================================================================================
+
+Vercel est un service gratuit pour publier des sites Next.js.
+
+1. Allez sur : https://vercel.com
+2. Créez un compte (avec GitHub c'est le plus simple).
+3. Si vous n'avez pas de compte GitHub :
+   - Allez sur https://github.com et créez-en un (gratuit).
+4. Sur GitHub :
+   - Cliquez sur "New repository"
+   - Nom : immigration-canada
+   - Laissez Public ou Private
+   - Cliquez "Create repository"
+5. Ensuite, sur votre ordinateur, dans le dossier du projet, suivez
+   les instructions que GitHub affiche pour "push" (envoyer) le code.
+   (Si c'est trop compliqué, vous pouvez aussi glisser-déposer le dossier
+   sur Vercel directement dans certains cas, ou demander de l'aide.)
+
+Méthode la plus simple pour débutant (glisser-déposer) :
+1. Sur Vercel, cliquez "Add New…" → "Project"
+2. Si possible, utilisez "Import" depuis GitHub.
+3. Une fois le projet importé, allez dans "Settings" → "Environment Variables"
+4. Ajoutez les 2 variables suivantes (les mêmes que dans .env.local) :
+   - NEXT_PUBLIC_SUPABASE_URL
+   - NEXT_PUBLIC_SUPABASE_ANON_KEY
+5. Cliquez sur "Deploy".
+6. Attendez 1 à 2 minutes.
+7. Vercel vous donnera une adresse du type : https://immigration-canada-xxxx.vercel.app
+
+Votre site est en ligne !
+
+
+================================================================================
+ÉTAPE 10 : Sécurité et bonnes pratiques
+================================================================================
+
+- Ne partagez JAMAIS votre mot de passe de base de données Supabase.
+- Ne mettez JAMAIS le fichier .env.local sur GitHub (il est déjà dans .gitignore).
+- Changez régulièrement votre mot de passe admin.
+- Activez si possible l'authentification à deux facteurs (MFA) dans Supabase.
+
+
+================================================================================
+RÉSUMÉ DES ADRESSES IMPORTANTES
+================================================================================
+
+- Site en local (test) : http://localhost:3000
+- Supabase (base de données) : https://supabase.com
+- Vercel (mise en ligne) : https://vercel.com
+- GitHub (stockage du code) : https://github.com
+
+
+================================================================================
+QUE FAIRE SI VOUS BLOQUEZ
+================================================================================
+
+1. Relisez l'étape où vous êtes bloqué.
+2. Vérifiez que vous avez bien copié les clés Supabase sans espace en trop.
+3. Vérifiez que le fichier .env.local est bien nommé avec le point au début.
+4. Si une erreur apparaît en rouge, copiez le message d'erreur complet.
+
+Le site est conçu pour être professionnel, sécurisé (les clients ne voient
+que leurs propres dossiers) et prêt à être utilisé.
+
+Bon courage !
